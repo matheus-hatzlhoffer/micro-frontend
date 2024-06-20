@@ -1,27 +1,43 @@
-# Shell
+# Shell Project
+
+The shell is a host service, it loads one or several remotes on demand. For your framework's perspective, this looks like traditional lazy loading. The big difference is that the host doesn't know the remotes at compilation time.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.4.
 
-## Development server
+## Step-by-Step
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+1. generate the workspace:
 
-## Code scaffolding
+```sh
+ng new shell --no-create-application
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+2. add native federation to the project
 
-## Build
+```sh
+npm i @angular-architects/native-federation -D
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+3. generathe shell application
 
-## Running unit tests
+```sh
+ng generate application shell --standalone false
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+4. init dynamic host configuration to the shell project
 
-## Running end-to-end tests
+```sh
+ng g @angular-architects/native-federation:init --project shell --port 4200 --type dynamic-host
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+5. start main module
 
-## Further help
+```sh
+ng generate module home-shell
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+6. generate new component in the home-shell module
+
+```sh
+ng generate component home-shell/home --module=home-shell
+```
