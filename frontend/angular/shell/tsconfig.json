@@ -25,6 +25,11 @@
     ],
     "types": ["node"]
   },
+  "include": [
+    "src/**/*.d.ts",
+    // "src/**/*.ts",
+    "src/env/env.ts"
+  ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
