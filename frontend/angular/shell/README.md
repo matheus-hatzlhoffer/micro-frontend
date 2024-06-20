@@ -41,3 +41,11 @@ ng generate module home-shell
 ```sh
 ng generate component home-shell/home --module=home-shell
 ```
+
+## Env variables needed
+
+1. remoteName
+2. remoteURI
+3. nginxPort
+4. hostName
+5. host

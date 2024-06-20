@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: 'remote',
     loadChildren: () =>
-      loadRemoteModule('remote', './remoteModule').then((m) => m.RemoteMainModule)
+      loadRemoteModule(`${process.env['remoteName']}`, `${process.env['remoteURI']}`).then((m) => m.RemoteMainModule)
   },
 ];
 

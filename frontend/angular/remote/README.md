@@ -47,3 +47,11 @@ ng add @angular-architects/native-federation --project remote --port 4201 --type
 ```sh
 ng serve
 ```
+
+## Env variables needed
+
+1. remoteName
+2. remoteURI
+3. nginxPort
+4. hostName
+5. host
