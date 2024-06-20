@@ -1,0 +1,17 @@
+pod:
+ imageName: "hatzlhoffer/remote-micro-frontend"
+ containerPort: 80
+
+services:
+  name: "service"
+  type: NodePort  #due to external IP pending issue, changed from LoadBalancer to NodePort
+  app: 8086
+  node: 30006
+
+host:
+ name: shell-application
+ port: 30004
+
+remote:
+  name: remote
+  uri: ./remoteModule

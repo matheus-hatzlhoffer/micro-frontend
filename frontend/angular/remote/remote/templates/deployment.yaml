@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: remote-micro-frontend
+  labels:
+    app: remote-micro-frontend
+
+spec:
+  selector:
+    matchLabels:
+      app: remote-micro-frontend
+
+  template:
+    metadata:
+      labels:
+        app: remote-micro-frontend
+
+    spec:
+      containers:
+        - name : remote-micro-frontend
+          image: {{.Values.pod.imageName}}
+          ports:
+            - containerPort : {{.Values.pod.containerPort}} #this should match the port nginx listening on
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+              readOnly: true
+          env:
+          - name: remoteName
+            valueFrom:
+              configMapKeyRef:
+                name: remote-app-config
+                key: remoteName
+          - name: remoteURI
+            valueFrom:
+              configMapKeyRef:
+                name: remote-app-config
+                key: remoteURI
+          - name: nginxPort
+            valueFrom:
+              configMapKeyRef:
+                name: remote-app-config
+                key: nginxPort
+          - name: hostName
+            valueFrom:
+              configMapKeyRef:
+                name: remote-app-config
+                key: hostName
+          - name: host
+            valueFrom:
+              configMapKeyRef:
+                name: remote-app-config
+                key: host
+      volumes:
+        - name: config-volume
+          configMap:
+            name: remote-app-config
