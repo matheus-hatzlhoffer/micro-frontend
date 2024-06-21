@@ -25,6 +25,9 @@ spec:
             - name: config-volume
               mountPath: /config
               readOnly: true
+            - name: nginx-config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
           env:
           - name: remoteName
             valueFrom:
@@ -55,3 +58,6 @@ spec:
         - name: config-volume
           configMap:
             name: remote-app-config
+        - name: nginx-config
+          configMap:
+            name: nginx-config

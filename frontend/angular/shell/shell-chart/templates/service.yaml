@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: shell-micro-frontend-service #service name
+spec:
+  type: {{.Values.services.type}}  #type of service
+  selector:
+    app: shell-micro-frontend #selecting the pods
+  ports:  # this is the port application will be accessed on if using LoadBalancer type
+  - port: {{.Values.services.app}}
+    nodePort: {{.Values.services.node}}
+    targetPort: {{.Values.pod.containerPort}}   #this should match the port nginx listening on

@@ -1,4 +1,12 @@
-worker_processes 1;
+# There is a more elegant way to do this - 
+# https://serverfault.com/questions/577370/how-can-i-use-environment-variables-in-nginx-conf
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  nginx.conf: |
+    worker_processes 1;
     events {
         worker_connections 1024;
     }
@@ -6,8 +14,7 @@ worker_processes 1;
         include /etc/nginx/mime.types;
         default_type application/octet-stream;
         server {
-            listen 80;
-            listen [::]:80;
+            listen {{.Values.pod.containerPort}};
             server_name localhost;
             gzip                    on;
             gzip_comp_level         6;
@@ -17,17 +24,15 @@ worker_processes 1;
             gzip_types              text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
             gzip_buffers            16 8k;
             client_max_body_size    256M;
+            add_header 'Access-Control-Allow-Origin' 'http://{{.Values.host.name}}:{{.Values.host.port}}';
             root /usr/share/nginx/html;
             index index.html;
-
-            location /remote {
-                proxy_pass http://localhost:4201/remoteEntry.json;
+            location / {
+                try_files $uri $uri/ /index.html;
             }
-
             location /assets/ {
             autoindex on;
             }
-
             # Error handling
             error_page 500 502 503 504 /50x.html;
             location = /50x.html {

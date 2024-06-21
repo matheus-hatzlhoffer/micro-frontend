@@ -11,7 +11,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'remote',
+    path: remoteName,
     loadChildren: () =>
       loadRemoteModule(remoteName, remoteURI).then((m) => m.RemoteMainModule)
   },
